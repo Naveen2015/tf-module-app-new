@@ -30,21 +30,21 @@ resource "aws_security_group" "sg" {
   tags = "${var.name}-${var.env}-sg"
 }
 
-resource "aws_launch_template" "foobar" {
+resource "aws_launch_template" "template" {
   name_prefix   = "${var.name}-${var.env}"
   image_id      = data.aws_ami.ami.id
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
 }
 
-# resource "aws_autoscaling_group" "bar" {
-#   availability_zones = ["us-east-1a"]
-#   desired_capacity   = 1
-#   max_size           = 1
-#   min_size           = 1
-#
-#   launch_template {
-#     id      = aws_launch_template.foobar.id
-#     version = "$Latest"
-#   }
-# }
+resource "aws_autoscaling_group" "bar" {
+
+  desired_capacity   = var.desired_capacity
+  max_size           = var.max_size
+  min_size           = var.min_size
+
+  launch_template {
+    id      = aws_launch_template.template.id
+    version = "$Latest"
+  }
+}
