@@ -81,6 +81,7 @@ resource "aws_lb_listener_rule" "rule" {
       values = [local.dns_name]
     }
   }
+  tags = { Name = "${var.name}-${var.env}-rule" }
 }
 
 
