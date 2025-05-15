@@ -38,6 +38,9 @@ resource "aws_launch_template" "template" {
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     name = var.name
     env = var.env } ))
+  iam_instance_profile {
+    name = aws_iam_instance_profile.instance_profile.name
+  }
 }
 
 resource "aws_autoscaling_group" "asg" {
