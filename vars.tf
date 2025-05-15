@@ -10,3 +10,6 @@ variable "max_size" {}
 variable "min_size" {}
 variable "tags" {}
 variable "app_port" {}
+variable "domain_namme" {}
+variable "listener_arn" {}
+variable "priority" {}
