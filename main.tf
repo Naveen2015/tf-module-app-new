@@ -58,3 +58,11 @@ resource "aws_autoscaling_group" "asg" {
     version = "$Latest"
   }
 }
+
+resource "aws_lb_target_group" "tg" {
+  name     = "${var.name}-${var.env}-tg"
+  port     = var.app_port
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+  tags = { Name = "${var.name}-${var.env}-tg" }
+}
