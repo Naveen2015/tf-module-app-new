@@ -40,7 +40,7 @@ resource "aws_iam_role_policy" "ssm-ps-policy" {
           "ssm:GetParameter"
         ],
         "Resource": [
-          "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account_id}:parameter/${var.env}.${var.name}.*",
+          "arn:aws:ssm:us-east-1:${data.aws_caller_identity.identity.account_id}:parameter/${var.env}.${var.name}.*",
           var.kms_arn
         ]
       }

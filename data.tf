@@ -11,4 +11,4 @@ data "aws_ami" "ami" {
   name_regex  = "Centos-8-DevOps-Practice"
   owners      = ["973714476881"]
 }
-data "aws_caller_identity" "account_id" {}
+data "aws_caller_identity" "identity" {}
