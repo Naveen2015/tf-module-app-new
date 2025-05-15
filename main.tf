@@ -84,4 +84,12 @@ resource "aws_lb_listener_rule" "rule" {
   tags = { Name = "${var.name}-${var.env}-rule" }
 }
 
+resource "aws_route53_record" "record" {
+  zone_id = var.zone_id
+  name    = local.dns_name
+  type    = "CNAME"
+  ttl     = 300
+  records = [var.lb_dns_name]
+}
+
 
