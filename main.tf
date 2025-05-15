@@ -44,6 +44,9 @@ resource "aws_autoscaling_group" "asg" {
   min_size           = var.min_size
   vpc_zone_identifier = var.subnet_ids
   target_group_arns = [ aws_lb_target_group.tg.arn ]
+  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
+    name = var.name
+    env = var.env } ))
   dynamic "tag" {
     for_each = local.asg_tags
     content {
@@ -58,11 +61,9 @@ resource "aws_autoscaling_group" "asg" {
     id      = aws_launch_template.template.id
     version = "$Latest"
   }
-  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
-    name = var.name
-    env = var.env
-  }))
-}
+
+  }
+
 
 resource "aws_lb_target_group" "tg" {
   name     = "${var.name}-${var.env}-tg"
